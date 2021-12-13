@@ -30,3 +30,5 @@
 *.exe
 *.out
 *.app
+BD-server/.vs/*
+BD-server/out/*
