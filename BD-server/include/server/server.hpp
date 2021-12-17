@@ -17,6 +17,6 @@ namespace server
 	class ClientConnection: public simulations::Pawn
 	{
 	private: sockpp::tcp_socket sock;
-	public: ClientConnection();
+	public: ClientConnection(acceptor* acc);
 	};
 }
