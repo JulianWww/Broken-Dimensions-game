@@ -17,4 +17,14 @@ if(win32)
 	target_link_libraries(BC-server "lib/sockpp-static_d")
 endif(win32)
 
-# TODO: Add tests and install targets if needed.
+
+if(WIN32)
+
+	target_include_directories(BD-server PUBLIC "D:/MyCode/CppLibs/include")
+	target_link_libraries(BD-server "lib/sockpp-static_d")
+endif(WIN32)
+if(UNIX)
+	find_library(sockpp_location sockpp)
+	message("sockpp is at: ${sockpp_location}")
+	target_link_libraries(BD-server "${sockpp_location}")
+endif(UNIX)
