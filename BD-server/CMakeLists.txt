@@ -14,6 +14,8 @@ file(GLOB sims
 add_executable (BD-server "BD-server.cpp" "BD-server.h" ${sims})
 target_include_directories(BD-server PUBLIC "${CMAKE_SOURCE_DIR}/include")
 
+target_compile_definitions(BD-server PUBLIC PORT=25600)
+
 if(WIN32)
 
 	target_include_directories(BD-server PUBLIC "D:/MyCode/CppLibs/include")
