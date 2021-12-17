@@ -1,5 +1,6 @@
 #include <sockpp/tcp_acceptor.h>
 #include <mutex>
+#include <sims/agents/pawn.hpp>
 
 namespace server
 {
@@ -10,5 +11,12 @@ namespace server
 	private: std::mutex acceptionLock;
 
 	public: acceptor(int16_t port);
+	public: sockpp::tcp_socket accept();
+	};
+
+	class ClientConnection: public simulations::Pawn
+	{
+	private: sockpp::tcp_socket sock;
+	public: ClientConnection();
 	};
 }

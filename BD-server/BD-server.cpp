@@ -13,7 +13,8 @@ int main()
 	wld.actors.push_back(std::make_unique<simulations::Pawn>(0.0, 0.0, 0.0, 1.0));
 	wld.mainLoop();*/
 
-	server::acceptor(PORT);
+	server::acceptor acc(PORT);
+	server::ClientConnection client1(&acc);
 
 	return 1;
 }
