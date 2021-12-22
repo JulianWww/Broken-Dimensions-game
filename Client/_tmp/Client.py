@@ -8,7 +8,9 @@ class Client:
         
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect((address[:dot], int(address[dot+1:])))
-        print(sock)
+
+        self.id = int.from_bytes(sock.recv(4), "little")
+        print(self.id)
 
 
 Client()

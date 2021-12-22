@@ -32,3 +32,4 @@
 *.app
 BD-server/.vs/*
 BD-server/out/*
+*.pyc
