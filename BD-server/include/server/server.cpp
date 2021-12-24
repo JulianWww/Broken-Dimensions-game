@@ -39,7 +39,8 @@ void server::ClientConnection::mainLoop()
 {
 	while (this->isActive)
 	{
-		this->recv();
+		if (this->checkMessageValidity())
+			this->recv();
 	}
 }
 

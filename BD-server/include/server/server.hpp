@@ -23,6 +23,7 @@ namespace server
 	private: std::thread* mainLoopThread;
 	private: sockpp::tcp_socket sock;
 	private: simulations::world* world;
+	private: unsigned int lastMessageId = -1;
 	private: bool isActive = true;
 
 	public: ClientConnection(acceptor* acc, simulations::world* world);
@@ -31,10 +32,25 @@ namespace server
 	public: static void _mainLoop(ClientConnection* conn);
 	public: void mainLoop();
 	public: void recv();
+
+	private: bool checkMessageValidity();
 	};
 }
 
 inline void server::ClientConnection::_mainLoop(ClientConnection* conn)
 {
 	conn->mainLoop();
+}
+
+inline bool server::ClientConnection::checkMessageValidity()
+{
+	unsigned int msgId[1];
+	this->sock.read(msgId, sizeof(msgId));
+	if (msgId[0] != this->lastMessageId)
+	{
+		this->lastMessageId = msgId[0];
+		std::cout << "msg Id is: " << this->lastMessageId << std::endl;
+		return true;
+	}
+	return false;
 }
