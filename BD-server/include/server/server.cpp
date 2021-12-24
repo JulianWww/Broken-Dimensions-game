@@ -43,10 +43,10 @@ void server::ClientConnection::mainLoop()
 
 	while (this->isActive)
 	{
+		auto out = select(1, &rfd, NULL, NULL, 0);
+		std::cout << "time to recv from: " << out << std::endl;
 		if (this->checkMessageValidity())
 			this->recv();
-
-		std::cout << select(1, &rfd, NULL, NULL, 0);
 	}
 }
 
