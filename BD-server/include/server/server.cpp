@@ -46,9 +46,9 @@ void server::ClientConnection::mainLoop()
 
 void server::ClientConnection::recv()
 {
-	char action;
-	this->sock.read(&action, 1);
-	int action_i = (int)action;
+	char action[1];
+	this->sock.read(action, sizeof(action));
+	int action_i = (int)action[0];
 	std::cout << action_i << std::endl;
 	return;
 }
