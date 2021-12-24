@@ -1,5 +1,6 @@
 import socket
 import requests
+import time
 
 class Client:
     def __init__(self):
@@ -17,6 +18,7 @@ class Client:
         self.sendAction(10, None)
 
     def sendAction(self, actionId, data):
+        time.sleep(10)
         print("howdy")
         self.sock.send(int.to_bytes(self.messageID, 4, "little") + int.to_bytes(actionId, 1, "little"))
         print("hi")
