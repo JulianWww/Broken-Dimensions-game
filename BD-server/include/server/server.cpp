@@ -37,10 +37,16 @@ server::ClientConnection::~ClientConnection()
 
 void server::ClientConnection::mainLoop()
 {
+	fd_set rfd;
+	FD_ZERO(&rfd);
+	FD_SET(this->sock.handle(), &rfd);
+
 	while (this->isActive)
 	{
 		if (this->checkMessageValidity())
 			this->recv();
+
+		std::cout << select(1, &rfd, NULL, NULL, 0);
 	}
 }
 
