@@ -1,6 +1,8 @@
 #include <sockpp/tcp_acceptor.h>
 #include <mutex>
 #include <sims/agents/pawn.hpp>
+#include <sims/world.hpp>
+#include <thread>
 
 namespace server
 {
@@ -16,7 +18,19 @@ namespace server
 
 	class ClientConnection: public simulations::Pawn
 	{
+	private: std::thread mainLoopThread;
 	private: sockpp::tcp_socket sock;
-	public: ClientConnection(acceptor* acc);
+	private: simulations::world* world;
+	private: bool isActive = true;
+	public: ClientConnection(acceptor* acc, simulations::world* world);
+
+	public: static void _mainLoop(ClientConnection* conn);
+	public: void mainLoop();
+	public: void recv();
 	};
+}
+
+void server::ClientConnection::_mainLoop(ClientConnection* conn)
+{
+	conn->mainLoop();
 }

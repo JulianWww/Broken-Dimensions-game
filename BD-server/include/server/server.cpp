@@ -17,9 +17,27 @@ sockpp::tcp_socket server::acceptor::accept()
 	return sock;
 }
 
-server::ClientConnection::ClientConnection(acceptor* acc)
+server::ClientConnection::ClientConnection(acceptor* acc, simulations::world* _world)
 {
+	this->world = _world;
 	sock = acc->accept();
 	std::cout << this->id << std::endl;
 	sock.write((void*)this->id, 4);
+
+	this->mainLoopThread = std::thread(server::ClientConnection::_mainLoop, this);
+}
+
+void server::ClientConnection::mainLoop()
+{
+	while (this->isActive)
+	{
+		this->recv();
+	}
+}
+
+void server::ClientConnection::recv()
+{
+	char action;
+	this->sock.read(&action, 1);
+	return;
 }
