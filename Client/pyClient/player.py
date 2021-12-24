@@ -2,11 +2,20 @@ from pawn import Pawn
 import pygame, config
 
 
-class Player(Pawn):
+class BasePlayer(Pawn):
+    PAWNTYPE = 1
+    def __init__(self, *args):
+        super(BasePlayer, self).__init__(*args)
+
+        self.sprite = pygame.image.load("characters/player.png")
+
+    def render(self, win):
+        win.blit(pygame.transform.scale(self.sprite, (300, 300)), (self.pos[0], self.pos[1]))
+
+class Player(BasePlayer):
     def __init__(self, *args):
         super(Player, self).__init__(*args)
 
-        self.sprite = pygame.image.load("characters/player.png")
         self.jumps = 0
         self.jumped = False
 
@@ -32,9 +41,9 @@ class Player(Pawn):
         if keys[pygame.K_d]:
             dx += config.playerHorizontalAcceleration
 
-        self.velocity = dx * config.playerHorizontalVelocityDecay, dy
+        self.velocity = dx, dy
 
-    def render(self, win):
-        win.blit(pygame.transform.scale(self.sprite, (300, 300)), (self.pos[0], self.pos[1]))
+    def getData(self):
+        return [self.pos[0], self.pos[1], self.velocity[0], self.velocity[1]]
 
     

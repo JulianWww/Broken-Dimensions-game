@@ -1,6 +1,8 @@
 import pygame
 from time import time
 import config
+from Client import Client
+from player import Player
 
 class Timer():
     def __init__(self):
@@ -25,15 +27,30 @@ class World():
         pygame.display.set_caption(self.TITLE)
         clock = pygame.time.Clock()
 
+        player = Player((100,100), None)
+        self.player = player
+        self.pawns = {}
+        
+        self.client = Client(self.player, self)
+        self.addPawn(self.player)
         self.timer = Timer()
+
+    def isDone(self):
+        return False
+
+    def addPawn(self, pawn):
+        self.pawns[pawn.id] = pawn
 
     def update(self, dt):
         self.handleEvents()
-        self.player.update(dt)
+
+        for pawn in self.pawns.values():
+            pawn.update(dt)
 
     def render(self):
         self.win.fill((12, 24, 36))
-        self.player.render(self.win)
+        for pawn in self.pawns.values():
+            pawn.render(self.win)
 
         pygame.display.flip()
 

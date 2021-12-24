@@ -3,14 +3,22 @@ import config
 
 
 class Pawn():
-    def __init__(self, pos):
+    def __init__(self, pos, ID):
         self.pos = pos
         self.velocity = (0, 0)
+        self.id = ID
+
+    def velocityDecay(self, dt):
+        if (dt > 0):
+            dx, dy = self.velocity
+            dx *= config.playerHorizontalVelocityDecay ** (1/dt)
+            #dy *= config.playerHorizontalVelocityDecay ** (1/dt)
+            self.velocity = dx, dy
 
     def update(self, dt):
         x, y = self.pos
         dx, dy = self.velocity
-        x, y = x + dx, y + dy
+        x, y = x + dx*dt, y + dy*dt
 
         if y > config.floorLevel:
             y = config.floorLevel
@@ -29,5 +37,7 @@ class Pawn():
         
         self.velocity = dx, dy
         self.pos = x, y
+
+        self.velocityDecay(dt)
 
         
