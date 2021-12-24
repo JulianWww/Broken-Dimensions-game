@@ -27,4 +27,9 @@ if(UNIX)
 	find_library(sockpp_location sockpp)
 	message("sockpp is at: ${sockpp_location}")
 	target_link_libraries(BD-server "${sockpp_location}")
+
+	find_package (Threads REQUIRED)
+	target_link_libraries(BD-server
+		${CMAKE_THREAD_LIBS_INIT}
+	)
 endif(UNIX)
