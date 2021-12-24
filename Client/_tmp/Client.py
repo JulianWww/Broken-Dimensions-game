@@ -16,6 +16,7 @@ class Client:
 
     def sendAction(self, actionId, data):
         self.sock.send(int.to_bytes(actionId, 1, "little"))
+        print("hi")
 
 
 Client()
