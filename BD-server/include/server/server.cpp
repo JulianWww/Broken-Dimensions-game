@@ -24,7 +24,12 @@ server::ClientConnection::ClientConnection(acceptor* acc, simulations::world* _w
 	std::cout << this->id << std::endl;
 	sock.write((void*)this->id, 4);
 
-	this->mainLoopThread = std::thread(server::ClientConnection::_mainLoop, this);
+	this->mainLoopThread = new std::thread(server::ClientConnection::_mainLoop, this);
+}
+
+server::ClientConnection::~ClientConnection()
+{
+	delete this->mainLoopThread;
 }
 
 void server::ClientConnection::mainLoop()

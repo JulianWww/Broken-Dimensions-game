@@ -18,11 +18,13 @@ namespace server
 
 	class ClientConnection: public simulations::Pawn
 	{
-	private: std::thread mainLoopThread;
+	private: std::thread* mainLoopThread;
 	private: sockpp::tcp_socket sock;
 	private: simulations::world* world;
 	private: bool isActive = true;
+
 	public: ClientConnection(acceptor* acc, simulations::world* world);
+	public: ~ClientConnection();
 
 	public: static void _mainLoop(ClientConnection* conn);
 	public: void mainLoop();
