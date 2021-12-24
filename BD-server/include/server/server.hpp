@@ -30,7 +30,7 @@ namespace server
 	};
 }
 
-void server::ClientConnection::_mainLoop(ClientConnection* conn)
+inline void server::ClientConnection::_mainLoop(ClientConnection* conn)
 {
 	conn->mainLoop();
 }
