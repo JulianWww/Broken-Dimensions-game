@@ -55,7 +55,6 @@ class Client:
                 self.addPawns(dataPoint)
 
     def addPawns(self, data):
-        print(data)
         for ID, TYPE in zip(data[::2], data[1::2]):
             p = getPawnType(TYPE)((0,0), ID)
             self.world.addPawn(p)
