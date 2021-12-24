@@ -22,7 +22,8 @@ server::ClientConnection::ClientConnection(acceptor* acc, simulations::world* _w
 	this->world = _world;
 	sock = acc->accept();
 	std::cout << this->id << std::endl;
-	sock.write((void*)this->id, 4);
+	sock.write_n((void*)this->id, 4);
+	std::cout << "sent id" << std::endl;
 
 	this->mainLoopThread = new std::thread(server::ClientConnection::_mainLoop, this);
 }
@@ -43,7 +44,7 @@ void server::ClientConnection::mainLoop()
 void server::ClientConnection::recv()
 {
 	char action;
-	this->sock.read(&action, 1);
+	this->sock.read_n(&action, 1);
 	int action_i = (int)action;
 	std::cout << action_i << std::endl;
 	return;
