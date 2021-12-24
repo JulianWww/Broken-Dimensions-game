@@ -16,5 +16,9 @@ int main()
 	server::acceptor acc(PORT);
 	server::ClientConnection client1(&acc, &wld);
 
+	std::mutex m;
+	std::unique_lock<std::mutex> lk(m);
+	acc.holder.wait(lk);
+
 	return 1;
 }

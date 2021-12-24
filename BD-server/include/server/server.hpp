@@ -3,6 +3,7 @@
 #include <sims/agents/pawn.hpp>
 #include <sims/world.hpp>
 #include <thread>
+#include <condition_variable>
 
 namespace server
 {
@@ -11,6 +12,7 @@ namespace server
 	private: sockpp::socket_initializer sockInit;
 	private: sockpp::tcp_acceptor acc;
 	private: std::mutex acceptionLock;
+	public: std::condition_variable holder;
 
 	public: acceptor(int16_t port);
 	public: sockpp::tcp_socket accept();
