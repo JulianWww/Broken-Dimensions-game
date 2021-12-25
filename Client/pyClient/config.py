@@ -8,3 +8,7 @@ pawnHorizontalConstaint = -100, 1000
 playerJumpVelocity = -1500
 playerHorizontalAcceleration = 8000
 playerHorizontalVelocityDecay = .01
+
+
+#comunication
+updateIntervall = 0.05
