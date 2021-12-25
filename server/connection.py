@@ -4,7 +4,7 @@ from threading import Thread
 from simulation.player import Player
 from pickle import dumps, loads
 from select import select
-import config
+from simulation import config
 
 class Acceptor:
     def __init__(self):
