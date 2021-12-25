@@ -3,12 +3,17 @@ from simulation.pawn import Pawn
 from connection import Connection
 
 
-world = World()
+while True:
+    try:
+        world = World()
 
-player = Connection([100.0,100.0], [0.0,0.0])
-world.addPawn(player)
+        player = Connection([100.0,100.0], [0.0,0.0])
+        world.addPawn(player)
 
-player2 = Connection([100.0,100.0], [0.0,0.0])
-world.addPawn(player2)
+        ##player2 = Connection([100.0,100.0], [0.0,0.0])
+        ##world.addPawn(player2)
 
-world.mainloop()
+        world.mainloop()
+    except:
+        pass
+

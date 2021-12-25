@@ -10,6 +10,7 @@ class World:
     def reset(self):
         self.pawns = {}
         self.players = []
+        self.connections = []
         self.lastTime = time()
 
     def update(self):
@@ -32,10 +33,14 @@ class World:
         pawn.world = self
         self.pawns[id(pawn)] = pawn
 
+        for connection in self.connections:
+            connection.addPawn(pawn)
+
         startSendingData = getattr(pawn, "startSendingData", None)
         if not startSendingData is None:
-            print("started loop")
             startSendingData()
+            self.connections.append(pawn)
+            pawn.putInWorld(self)
 
     def getPosData(self, playerID):
         data = [[]]

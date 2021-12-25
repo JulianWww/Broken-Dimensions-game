@@ -9,10 +9,9 @@ class Pawn():
         self.id = ID
 
     def velocityDecay(self, dt):
-        if (dt > 0):
+        if (self.pos[1] >= config.floorLevel):
             dx, dy = self.velocity
-            dx *= config.playerHorizontalVelocityDecay ** (1/dt)
-            #dy *= config.playerHorizontalVelocityDecay ** (1/dt)
+            dx *= config.playerHorizontalVelocityDecay ** dt
             self.velocity = dx, dy
 
     def update(self, dt):

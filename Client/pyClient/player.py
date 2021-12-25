@@ -25,7 +25,7 @@ class Player(BasePlayer):
         dx, dy = self.velocity
         keys = pygame.key.get_pressed()
 
-        if (self.pos[1] == config.floorLevel):
+        if (self.pos[1] >= config.floorLevel):
             self.jumps = 0
 
         if keys[pygame.K_SPACE]:
@@ -37,9 +37,11 @@ class Player(BasePlayer):
             self.jumped = False
 
         if keys[pygame.K_a]:
-            dx -= config.playerHorizontalAcceleration
+            dx -= config.playerHorizontalAcceleration * dt
         if keys[pygame.K_d]:
-            dx += config.playerHorizontalAcceleration
+            dx += config.playerHorizontalAcceleration * dt
+        if keys[pygame.K_s]:
+            dx = 0
 
         self.velocity = dx, dy
 

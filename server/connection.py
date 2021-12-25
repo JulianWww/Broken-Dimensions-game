@@ -28,6 +28,15 @@ class Connection(Player):
         super(Connection, self).__init__(*args)
         self.sock = acceptor.accept()
         self.sendId()
+        self.newPawns = []
+
+    def putInWorld(self, world):
+        for pawn in world.pawns.values():
+            if not pawn is self:
+                self.newPawns.append(pawn)
+
+    def addPawn(self, pawn):
+        self.newPawns.append(pawn)
 
     def sendId(self):
         self.sock.send(int.to_bytes(self.id, 8, "little"))
@@ -44,13 +53,14 @@ class Connection(Player):
 
     def getData(self):
         toRead, _, _ = select([self.sock], [], [])
-        back = []
+        back = self.getAdditionalData()
         for sock in toRead:
             size = int.from_bytes(sock.recv(4), "little")
             data = loads(sock.recv(size))
             self.updatePositionAndVelocity(data[0])
 
             for furtherData in data[1:]:
+                print(data[1:])
                 if furtherData[0] == 0:
                     back.append((0,self.getPawnTypeIds(furtherData[1])))
         return back
@@ -62,14 +72,31 @@ class Connection(Player):
 
             returns.append(ID)
             returns.append(pawn.PAWNTYPE)
-        return returns          
-        
+        return returns
+
+    def getNewPawnData(self):
+        returns = []
+        for pawn in self.newPawns:
+            returns.append(id(pawn))
+            returns.append(pawn.PAWNTYPE)
+        self.newPawns = []
+        return returns        
 
     def updatePositionAndVelocity(self, data):
             self.pos[0] = data[0]
             self.pos[1] = data[1]
             self.vel[0] = data[0]
             self.vel[1] = data[1]
+
+    def getAdditionalData(self):
+        data = []
+        if len(self.newPawns):
+            data.append((0, self.getNewPawnData()))
+            print(data)
+
+
+
+        return data
 
     def sendDataLoop(self):
         queryReturns = []

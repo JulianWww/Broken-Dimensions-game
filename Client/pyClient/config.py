@@ -1,10 +1,10 @@
-gravity = 50
+gravity = 3000
 floorLevel = 700
 worldSize = 1200, 1000
 pawnHorizontalConstaint = -100, 1000
 
 
 #player
-playerJumpVelocity = -30
-playerHorizontalAcceleration = 10
-playerHorizontalVelocityDecay = 0.99
+playerJumpVelocity = -1500
+playerHorizontalAcceleration = 8000
+playerHorizontalVelocityDecay = .01
