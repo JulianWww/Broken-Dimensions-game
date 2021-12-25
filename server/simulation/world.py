@@ -1,7 +1,7 @@
 from time import time
 import os
 print(os.getcwd())
-import config
+from simulation import config
 from player import Player
 
 
