@@ -1,4 +1,4 @@
-from pawn import Pawn
+from .pawn import Pawn
 
 class Player(Pawn):
     PAWNTYPE = 1
