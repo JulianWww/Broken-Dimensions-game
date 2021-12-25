@@ -20,8 +20,8 @@ class Pawn:
         self.vel[1] += config.gravity * dt
 
     def velocityDecay(self, dt):
-        if dt != 0:
-            self.vel[0] *= config.playerHorizontalVelocityDecay ** (1/dt)
+        if self.pos[1] >= config.floorLevel:
+            self.vel[0] *= config.playerHorizontalVelocityDecay ** dt
 
     def contrainPosition(self, dt):
         # constrin due to flor
